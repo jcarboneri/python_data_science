@@ -33,6 +33,17 @@ usuarios = [
 
 amizades =[ (0, 1), (0, 2), (1, 2), (2, 3), (3, 4), (3, 5), (5, 6), (6, 7) ]
 
+interesses = [
+    (0, "Hadoop"), (0, "Big Data"), (0, "HBase"), (0, "Java"),
+    (1, "Spark"), (1, "MongoDB"), (1, "NodeJs"), (1, "Python"),
+    (2, "Hadoop"), (2, "MongoDB"), (2, "Coding"), (2, "Debugging"),
+    (3, "Python"), (3, "Java"), (3, "NodeJs"), (3, "statistics"),
+    (4, "Hadoop"), (4, "NodeJs"), (4, "HBase"), (4, "Java"),
+    (5, "Python"), (5, "AI"), (5, "R"), (5, "Java"),
+    (6, "Java"), (6, "neural networks"), (6, "Python"), (6, "matematica"),
+    (7, "SQL"), (7, "regression"), (7, "probability"), (7, "Cassandra")
+]
+
 for usuario in usuarios:
     usuario["amigos"]=[]
 
