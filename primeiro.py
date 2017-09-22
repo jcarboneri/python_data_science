@@ -1,3 +1,25 @@
+from collections import Counter
+import json
+
+def amigos_de_amigos_ids(usuario):
+    # ada eh uma abreviacao de amigo do amigo
+    return [ada["id"]
+            for amigo in usuario["amigos"]
+            for ada in amigo["amigos"]]
+#nao sao a mesma pessoa
+def nao_eh_o_mesmo(user, outro_user):
+    return user["id"] != outro_user["id"]
+
+def nao_sao_amigos(user, outro_user):
+    return all(nao_eh_o_mesmo(amigo, outro_user) for amigo in user["amigos"])
+
+def ids_dos_amigos_dos_amigos(user):
+    return Counter( ada["id"]
+                    for amigo in user["amigos"]
+                    for ada in amigo["amigos"]
+                    if nao_eh_o_mesmo(user, ada) and
+                    nao_sao_amigos(user, ada) )
+
 usuarios = [
     { "id": 0, "nome": "Juliano" },
     { "id": 1, "nome": "Fulano" },
@@ -15,6 +37,9 @@ for usuario in usuarios:
     usuario["amigos"]=[]
 
 for x, y in amizades:
+    print(str(usuarios[x]))
+    print(str(usuarios[y]))
+    print(' ')
     usuarios[x]["amigos"].append(usuarios[y])
     usuarios[y]["amigos"].append(usuarios[x])
 
@@ -30,11 +55,15 @@ num_amigos_por_id = [ (usuario["id"], numero_de_amigos(usuario)) for usuario in 
 
 sorted( num_amigos_por_id, key=lambda usuario_id: usuario_id[0], reverse=True )
 
+for user in usuarios:
+    #json_get = "{" + str(user) + "}"
+    print(json.dumps(str(user), indent=3))
+    print(' ')
+
 # Imprime Lista de Amigos com suas quantidades
 for X, Y in num_amigos_por_id:
     print( "Usuarios = ID: " + str(X) + " AMIGOS: " + str(Y))
 
-def amigos_de_amigos_ids(usuario):
-    return [ada["id"]
-            for amigo in usuario["amigos"]
-            for ada in amigo["amigos"]]
+print(str(amigos_de_amigos_ids(usuarios[0])))
+print(' ')
+print(str(ids_dos_amigos_dos_amigos(usuarios[3])))
